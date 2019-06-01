@@ -113,13 +113,22 @@ public class test0601 {
     }
     public static void main(String[] args){
         Test head = null;
+        display(head);
+        System.out.println("链表的插入功能:");
         head = pushback(head,1);
         head = pushback(head,2);
         head = pushback(head,3);
+        head = pushback(head,4);
         display(head);
+        System.out.println("链表的反转功能;");
         head = reverselist(head);
         display(head);
+        System.out.println("链表的删除功能;");
+        head = popback(head,4);
+        display(head);
         head = pushback(head,2);
+        display(head);
+        System.out.println("链表的删除全部目标功能:");
         head = removelement(head,2);
         display(head);
     }
