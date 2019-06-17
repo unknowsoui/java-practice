@@ -1,0 +1,29 @@
+public static Node getRandomList(Node head){
+Node cur =  head;
+while(cur != null){
+Node node =  new Node(cur.value);
+node.next = cur.next;//先保存cur.next以免被覆盖
+cur.next = node;//cur.next发生变化
+cur = node.next;
+}
+cur = head;
+while(cur != null){
+if(cur.random != null)//保险操作，因为random随意指向，有可能random本身就指向null，保证不解引用空节点的next
+{
+cur.next.random= cur.random.next;//cur.next.random(这个就是新节点的random) = cur.random.next(因为经历过上面遍历的操作，新链表和老链表相互交叉到了一起，先找到cur.random本身指向的老链表节点，老链表的next就是新链表的节点，这样新链表random就建立了)
+}
+cur = cur.next.next;
+}
+cur = head;
+Node newnode = head.next;//保存新链表头结点，因为下面两个操作完成之后就不知道新链表头结点
+while(cur != null){
+Node node = head.next;//保存当前的新链表的节点，因为如果执行下一步，那么属于新链表的节点会丢失；
+cur.next = node.next;
+if(node.next != null)//做保险操作，因为遍历到最后链表指向为空，保证不解引用空节点的next
+{
+node.next = node.next.next;
+}
+cur = cur.next;
+}
+return newnode;
+}
